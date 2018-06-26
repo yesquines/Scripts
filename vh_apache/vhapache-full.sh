@@ -1,8 +1,6 @@
 #!/bin/bash
 #Script para criação de Virtual Host no Apache.
 #Autor: Yago Ésquines
-#Versão: 1.0
-#Tabela de Atualzações:
 
 ##############FUNCOES############################
 opcaohttps()
@@ -97,8 +95,7 @@ opcaoredict()
 ################################################
 
 # Script para criação de Virtual Host do Apache.
-echo "[INICIO] SCRIPT PARA CRIAÇÃO DE VIRTUAL HOST NO APACHE";
-echo "";
+echo -e "[INICIO] SCRIPT PARA CRIAÇÃO DE VIRTUAL HOST NO APACHE\n";
 read -p "Digite o nome do Site [Apenas Nome]: " NOMESITE;
 read -p "Digite o Dominio: " DOMINIO;
 read -p "Digite a Pasta Principal [$NOMESITE]: " PASTASITE;
@@ -203,8 +200,7 @@ a2ensite $NOMESITE && chmod 751 /etc/apache2/sites-available/$NOMESITE && chown 
 				echo "[INFO] Diretorio de Arquivos: ${PASTASITE}";
 				echo "[INFO] Opção HTTPS: ${OPHTTPS}";
 				echo "[INFO] Opção de Redirecionamento: ${OPREDIRECT}";
-				echo "[INFO] Opção de Senha: ${OPSENHA}";
-				echo "";
+				echo -e "[INFO] Opção de Senha: ${OPSENHA}\n";
 				echo "[FIM] PROCESSO FINALIZADO COM SUCESSO!";
 			} else echo "[ERRO] FALHA AO REINICIAR APACHE!";
         	fi
