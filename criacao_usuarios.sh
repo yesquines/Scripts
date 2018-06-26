@@ -3,7 +3,6 @@
 #Email: yago.fut@gmail.com.br
 #Trabalho FATEC São Caetano
 #Desc: Script para criação, listagem, troca de senhas e exclusão de usuários
-#V1.0.1
 
 #Loop Infinito para manter o as opções ativas
 while true
@@ -35,7 +34,7 @@ do
 			#Verificação de Usuário já existe
 			if [ $(getent passwd $NOME | wc -l) -eq 0 ]; then
 				#Adicionando o Usuário
-				useradd $NOME 
+				useradd -m $NOME 
 	
 				#Verificando se houve falha ao adicionar o usuário
 				if [ $? -eq 0 ]; then
