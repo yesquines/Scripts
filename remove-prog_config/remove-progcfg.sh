@@ -2,8 +2,7 @@
 #Autor: Yago Ésquines
 #Email: yago.fut@gmail.com
 #Ano: 2015
-#Versão: 1.0
-# Script para remover arquivos de configuração de programas já desinstalados
+#Script para remover arquivos de configuração de programas já desinstalados - Sistemas LIKE DEBIAN
 
 LISTA=`dpkg -l | egrep ^rc | cut -d\  -f3`;
 VERIFICACAO=`dpkg -l | egrep ^rc | cut -d\  -f3 | wc -l`;
@@ -18,23 +17,19 @@ else
 	echo "$VERIFICACAO Programas terão seus arquivos de configuração excluidos."
 	for A in $LISTA; do 
 		echo "Programa: $A"
-		`dpkg --purge $A > /dev/null 2> erro.txt`
+		$(dpkg --purge $A > /dev/null 2> erro.txt)
 		if [ $? -eq 0 ]; then
-			echo "Arquivos de Configuração de $A removido com sucesso"
-			echo " "
+			echo -e "Arquivos de Configuração de $A removido com sucesso\n"
 		else 	
-			echo "Falha na remoção do programa $A"
-			echo " ";
+			echo -e "Falha na remoção do programa $A\n"
 			CONTROLE="1";
 		fi
 	done
 fi
 
 if [ $CONTROLE -eq "0" ]; then
-	echo " ";
-	echo "###OPERAÇÃO CONCLUIDA###"
+	echo -e "\n###OPERAÇÃO CONCLUIDA###"
 else
-	echo " ";
-	echo "Erro(s) encontrado(s):"
-	echo "`cat erro.txt`"
+	echo -e "\nErro(s) encontrado(s):"
+	echo "$(cat erro.txt)"
 fi
