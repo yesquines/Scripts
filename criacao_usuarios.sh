@@ -83,10 +83,10 @@ do
 		4)
 			#Limpar a Tela
 			clear
-	
+			CONFIRMAR=n	
 			#Coletando Informação do usuário que irá ser excluido senha
 			read -p "Digite o nome do Usuário que será excluido: " NOME
-			read -p "Tem certeza que irá excluir o usuário $NOME?(s/N) " ${CONFIRMAR:=n}
+			read -p "Tem certeza que irá excluir o usuário $NOME?(s/N) " CONFIRMAR
 			
 			#Verificando se usuário deve ser excluido
 			if [ $CONFIRMAR	== "S" -o $CONFIRMAR == "s" ]; then 
