@@ -1,7 +1,7 @@
 #!/bin/bash
 #Autor: Yago Ésquines
 #Email: yago.fut@gmail.com.br
-#Trabalho FATEC São Caetano
+#Trabalho FATEC São Caetano - 2018
 #Desc: Script para criação, listagem, troca de senhas e exclusão de usuários
 
 #Loop Infinito para manter o as opções ativas
