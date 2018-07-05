@@ -8,7 +8,7 @@
 DIA=`date +%F`;
 HORA=`date +%T`;
 EMAIL="yago.fut@gmail.com";
-SWAPIP=`cat /home/yago/Documentos/Scripts/ver_ip/ver_ipexterno.txt`;
+SWAPIP=`cat ./ver_ipexterno.txt`;
 
 #Verificar Conexão com a Internet
 #until [[ `ping -c 2 8.8.8.8 > /dev/null` ]]; do
@@ -20,9 +20,9 @@ if [[ $? -eq 0 ]]; then
 	echo "$DIA $HORA: Conexão Ativa";
 	#Verificando IP Externo
 	echo "$DIA $HORA: VERIFICANDO IP EXTERNO";
-	IPEXTERNO=`curl ifconfig.me`;
+	IPEXTERNO=`curl ifconfig.co`;
 	if [[ $? -eq 0 ]]; then
-		echo $IPEXTERNO > /home/yago/Documentos/Scripts/ver_ip/ver_ipexterno.txt;
+		echo $IPEXTERNO > ./ver_ipexterno.txt;
 		#Verificando se IP Mudou
 			if [[ "$SWAPIP" != "$IPEXTERNO" ]]; then
 				echo "$DIA $HORA: Número do IP Externo: $IPEXTERNO";	
@@ -34,7 +34,7 @@ if [[ $? -eq 0 ]]; then
 					echo "$DIA $HORA: PROCESSO TERMINADO";
 					echo "#############################";
 				else
-					echo "" > /home/yago/Documentos/Scripts/ver_ip/ver_ipexterno.txt;
+					echo "" > ./ver_ipexterno.txt;
 					echo "$DIA $HORA: Falha ao Enviar Email!";
 					echo "$DIA $HORA: Nova Verificação em 30m";
 					echo "#############################";
