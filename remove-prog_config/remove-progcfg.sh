@@ -5,7 +5,7 @@
 #Script para remover arquivos de configuração de programas já desinstalados - Sistemas LIKE DEBIAN
 
 LISTA=`dpkg -l | egrep ^rc | cut -d\  -f3`;
-VERIFICACAO=`dpkg -l | egrep ^rc | cut -d\  -f3 | wc -l`;
+VERIFICACAO=`dpkg -l | egrep ^rc -c`;
 CONTROLE="0";
 
 if [ $VERIFICACAO -eq 0 ]; then
@@ -13,7 +13,6 @@ if [ $VERIFICACAO -eq 0 ]; then
 	echo "$VERIFICACAO PROGRAMAS PARA REMOÇÃO DO ARQUIVO DE CONFIGURAÇÃO"
 
 else
-
 	echo "$VERIFICACAO Programas terão seus arquivos de configuração excluidos."
 	for A in $LISTA; do 
 		echo "Programa: $A"
@@ -32,4 +31,5 @@ if [ $CONTROLE -eq "0" ]; then
 else
 	echo -e "\nErro(s) encontrado(s):"
 	echo "$(cat erro.txt)"
+	exit 1
 fi
