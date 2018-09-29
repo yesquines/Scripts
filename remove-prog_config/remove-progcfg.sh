@@ -4,7 +4,7 @@
 #Ano: 2015
 #Script para remover arquivos de configuração de programas já desinstalados - Sistemas LIKE DEBIAN
 
-LISTA=`dpkg -l | egrep ^rc | cut -d\  -f3`;
+LISTA=`dpkg -l | awk '/^rc/ { print $2 }'`;
 VERIFICACAO=`dpkg -l | egrep ^rc -c`;
 CONTROLE="0";
 
