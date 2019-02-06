@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 #Autor: Yago Ésquines
 #Email: yago.fut@gmail.com
 #Ano: 2018
