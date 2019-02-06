@@ -13,7 +13,7 @@ chmod 751 -R /etc/apache2/
 
 # Alterando permissão para arquivos comuns, .php e diretorios em /www/
 chmod 644 -R /www/ 
-find /www/ -iname *.php  -exec chmod 641 '{}' \;
+find /www/ -iname '*.php'  -exec chmod 641 '{}' \;
 find /www/ -type d ! -exec chmod 755 '{}' \;
 
 # Permissões para Arquivos Wordpress
