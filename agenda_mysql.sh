@@ -58,15 +58,15 @@ echo "
 	4 - Consultar um Contato
 	5 - Sair
 "
-read -p "Escolha uma das opções: " OPT
+read -pr "Escolha uma das opções: " OPT
 
 case $OPT in 
 	1)
 		clear
-		read -p "Nome do Contato: " NOME
-		read -p "Telefone do Contato: " CONTATO
-		read -p "E-mail do Contato: " EMAIL
-		read -p "Aniversario do Contato: " ANIVERSARIO
+		read -pr "Nome do Contato: " NOME
+		read -pr "Telefone do Contato: " CONTATO
+		read -pr "E-mail do Contato: " EMAIL
+		read -pr "Aniversario do Contato: " ANIVERSARIO
 
 		inserir		
 	;;
@@ -76,20 +76,20 @@ case $OPT in
 		NOME=$INFO
 		CAMPO=nome
 		consultar
-		read -p "Realmente Deseja apagar o usuário?(S/N) " DEL
+		read -pr "Realmente Deseja apagar o usuário?(S/N) " DEL
 		[ "$DEL" = "S" -o "s" ] && deletar || exit 1
 	;;
 	3)
 		clear
-		read -p "Qual Campo será atualizado?(nome|telefone|email|aniversario) " CAMPO
-		read -p "Digite o Nome do Contato: " NOME
-		read -p "Digite o Novo Valor: " VALOR
+		read -pr "Qual Campo será atualizado?(nome|telefone|email|aniversario) " CAMPO
+		read -pr "Digite o Nome do Contato: " NOME
+		read -pr "Digite o Novo Valor: " VALOR
 		atualizar
 	;;
 	4)
 		clear
-		read -p "Qual Campo Será Consultado?(nome|telefone|email|aniversario) " CAMPO
-		read -p "Digite o que deseja pesquisar: " INFO
+		read -pr "Qual Campo Será Consultado?(nome|telefone|email|aniversario) " CAMPO
+		read -pr "Digite o que deseja pesquisar: " INFO
 		consultar
 	;;
 	5)
