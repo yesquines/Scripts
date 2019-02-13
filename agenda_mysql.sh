@@ -22,7 +22,7 @@ CREATE TABLE contatos (
 inserir () {
 	mysql -u root -e "INSERT INTO contatos (nome,telefone,email,aniversario) VALUE ('$NOME','$CONTATO','$EMAIL','$ANIVERSARIO')" agenda 
 	[ $? -eq 0 ] && echo "Contato Inserido" || echo "Erro: Contato Não Inserido" 
-	read -p "Pressione Enter para continuar"
+	read -pr "Pressione Enter para continuar"
 }
 
 consultar() {
@@ -30,21 +30,21 @@ consultar() {
 	ID=$(mysql -u root -e "SELECT * FROM contatos where nome='$NOME'" agenda  | grep ^[0-9] | tr "\t" ":" | cut -d: -f1)
 	mysql -u root -e "SELECT * FROM contatos where $CAMPO='$INFO'" agenda
 	[ $? -ne 0 ] || echo "Erro: Falha ao realizar a Query" 
-	read -p "Pressione Enter para continuar"
+	read -pr "Pressione Enter para continuar"
 }
 
 deletar () {
 
 	mysql -u root -e "DELETE FROM contatos WHERE id='$ID'" agenda
 	[ $? -eq 0 ] && echo "Contato Deletado" || echo "Erro: Contato Não Deletado"	
-	read -p "Pressione Enter para continuar"
+	read -pr "Pressione Enter para continuar"
 }
 
 atualizar() {
 	
 	mysql -u root -e "UPDATE contatos SET $CAMPO='$VALOR' WHERE nome='$NOME'" agenda
 	[ $? -eq 0 ] && echo "Contato Atualizado!" || echo "Erro: Contato Não Atualizado"
-	read -p "Pressione Enter para continuar"
+	read -pr "Pressione Enter para continuar"
 }
 
 while true
