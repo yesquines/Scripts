@@ -4,19 +4,22 @@
 #Ano: 2015
 #Script de Permissionamento em um ambiente web.
 
+DIR=/var/www
+APACHE_DIR=/etc/apache2/
+
 # Dono e Grupo: www-data | www-data
-chown www-data.www-data -R /www/
+chown www-data.www-data -R $DIR
 
 # Dono, Grupo e Permissão: apache - 751
-chown apache.apache -R /etc/apache2/
-chmod 751 -R /etc/apache2/
+chown www-data.www-data -R $APACHE_DIR
+chmod 751 -R $APACHE_DIR
 
 # Alterando permissão para arquivos comuns, .php e diretorios em /www/
-chmod 644 -R /www/ 
-find /www/ -iname '*.php'  -exec chmod 641 '{}' \;
-find /www/ -type d ! -exec chmod 755 '{}' \;
+chmod 644 -R $DIR
+find $DIR -iname '*.php'  -exec chmod 641 '{}' \;
+find $DIR -type d ! -exec chmod 755 '{}' \;
 
 # Permissões para Arquivos Wordpress
-find /www/ -iname .htaccess -exec chmod 444 '{}' \;
-find /www/ -iname wp-config.php -exec chmod 440 '{}' \;
-find /www/ -type d -iname themes -exec chmod 711 '{}' \;
+find $DIR -iname .htaccess -exec chmod 444 '{}' \;
+find $DIR -iname wp-config.php -exec chmod 440 '{}' \;
+find $DIR -type d -iname themes -exec chmod 711 '{}' \;
