@@ -3,7 +3,7 @@
 #Email: yago.fut@gmail.com
 #Ano: 2020
 #Dependencia: pactl
-#Script para Usar como Comando para alterar volumes de aplicações especificas
+#Volfy é um Script para Usar como Comando a fim de alterar o volume de uma aplicação espefica especificas, por exemplo, o spotify.
 
 CHECK_NUMBER='^[0-9]+%$'
 CLIENTS=$(pactl list sink-inputs | grep "application.name =" | awk '{print $3}' | sed 's,",,g' )
@@ -30,10 +30,10 @@ if [ $1 != "--help" ];then
 		exit 2;
 	fi
 	
-	#Coletando Client ID do Spotify
+	#Coletando Client ID
 	CLIENT_ID=$(pactl list clients short | grep ${APPLICATION} | awk '{print $1}');
 	
-	#Coletando Sink do Spotify
+	#Coletando Sink Number
 	for ID in $CLIENT_ID
 	do
 		CHECK=$(pactl list sink-inputs short | grep $ID | awk '{print $1}');
@@ -43,14 +43,15 @@ if [ $1 != "--help" ];then
 		fi
 	done
 	
+	#Alterando o Volume da Aplicação
 	if [ -n $SINK_NUMBER ]; then
-		#Alterando o Volume 
 		pactl set-sink-input-volume $SINK_NUMBER $VOLUME || exit 3;
 	else
 		echo "[ERR] Command failed - Sink Number is Wrong"
 		exit 3
 	fi
 else
+  # --help
 	echo -e "
 Syntax:
 volfy client volume_percent
