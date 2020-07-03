@@ -32,7 +32,7 @@ do
 			#Coletando Informação do Novo Usuário.
 			read -p "Digite o nome do Novo Usuário: " NOME
 			#Verificação de Usuário já existe
-			if [ $(getent passwd $NOME | wc -l) -eq 0 ]; then
+			if [ "$(getent passwd $NOME | wc -l)" -eq 0 ]; then
 				#Adicionando o Usuário
 				useradd -m $NOME 
 	

@@ -22,7 +22,7 @@ CREATE TABLE contatos (
 inserir () {
 	mysql -u root -e "INSERT INTO contatos (nome,telefone,email,aniversario) VALUE ('$NOME','$CONTATO','$EMAIL','$ANIVERSARIO')" agenda 
 	[ $? -eq 0 ] && echo "Contato Inserido" || echo "Erro: Contato Não Inserido" 
-	read -p "Pressione Enter para continuar"
+	read -pr "Pressione Enter para continuar"
 }
 
 consultar() {
@@ -30,21 +30,21 @@ consultar() {
 	ID=$(mysql -u root -e "SELECT * FROM contatos where nome='$NOME'" agenda  | grep ^[0-9] | tr "\t" ":" | cut -d: -f1)
 	mysql -u root -e "SELECT * FROM contatos where $CAMPO='$INFO'" agenda
 	[ $? -ne 0 ] || echo "Erro: Falha ao realizar a Query" 
-	read -p "Pressione Enter para continuar"
+	read -pr "Pressione Enter para continuar"
 }
 
 deletar () {
 
 	mysql -u root -e "DELETE FROM contatos WHERE id='$ID'" agenda
 	[ $? -eq 0 ] && echo "Contato Deletado" || echo "Erro: Contato Não Deletado"	
-	read -p "Pressione Enter para continuar"
+	read -pr "Pressione Enter para continuar"
 }
 
 atualizar() {
 	
 	mysql -u root -e "UPDATE contatos SET $CAMPO='$VALOR' WHERE nome='$NOME'" agenda
 	[ $? -eq 0 ] && echo "Contato Atualizado!" || echo "Erro: Contato Não Atualizado"
-	read -p "Pressione Enter para continuar"
+	read -pr "Pressione Enter para continuar"
 }
 
 while true
@@ -58,15 +58,15 @@ echo "
 	4 - Consultar um Contato
 	5 - Sair
 "
-read -p "Escolha uma das opções: " OPT
+read -pr "Escolha uma das opções: " OPT
 
 case $OPT in 
 	1)
 		clear
-		read -p "Nome do Contato: " NOME
-		read -p "Telefone do Contato: " CONTATO
-		read -p "E-mail do Contato: " EMAIL
-		read -p "Aniversario do Contato: " ANIVERSARIO
+		read -pr "Nome do Contato: " NOME
+		read -pr "Telefone do Contato: " CONTATO
+		read -pr "E-mail do Contato: " EMAIL
+		read -pr "Aniversario do Contato: " ANIVERSARIO
 
 		inserir		
 	;;
@@ -76,20 +76,20 @@ case $OPT in
 		NOME=$INFO
 		CAMPO=nome
 		consultar
-		read -p "Realmente Deseja apagar o usuário?(S/N) " DEL
+		read -pr "Realmente Deseja apagar o usuário?(S/N) " DEL
 		[ "$DEL" = "S" -o "s" ] && deletar || exit 1
 	;;
 	3)
 		clear
-		read -p "Qual Campo será atualizado?(nome|telefone|email|aniversario) " CAMPO
-		read -p "Digite o Nome do Contato: " NOME
-		read -p "Digite o Novo Valor: " VALOR
+		read -pr "Qual Campo será atualizado?(nome|telefone|email|aniversario) " CAMPO
+		read -pr "Digite o Nome do Contato: " NOME
+		read -pr "Digite o Novo Valor: " VALOR
 		atualizar
 	;;
 	4)
 		clear
-		read -p "Qual Campo Será Consultado?(nome|telefone|email|aniversario) " CAMPO
-		read -p "Digite o que deseja pesquisar: " INFO
+		read -pr "Qual Campo Será Consultado?(nome|telefone|email|aniversario) " CAMPO
+		read -pr "Digite o que deseja pesquisar: " INFO
 		consultar
 	;;
 	5)
