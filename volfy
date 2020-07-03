@@ -8,7 +8,7 @@
 CHECK_NUMBER='^[0-9]+%$'
 CLIENTS=$(pactl list sink-inputs | grep "application.name =" | awk '{print $3}' | sed 's,",,g' )
 
-if [ $1 != "--help" ];then
+if [ "$1" != "--help" -a -n "$1" ];then
 
 	#Validando Parametros do Comando
 	for NAME in ${CLIENTS,,}
