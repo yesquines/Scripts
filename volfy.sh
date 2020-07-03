@@ -5,12 +5,12 @@
 #Script para Usar como Comando para alterar volumes de aplicações especificas
 
 CHECK_NUMBER='^[0-9]+%$'
-CLIENTS=$(pactl list clients short | awk '{print $3}' | grep -v null | sort -u)
+CLIENTS=$(pactl list sink-inputs | grep "application.name =" | awk '{print $3}' | sed 's,",,g' )
 
 if [ $1 != "--help" ];then
 
 	#Validando Parametros do Comando
-	for NAME in $CLIENTS
+	for NAME in ${CLIENTS,,}
 	do
   	if [ $NAME == ${1,,} ]; then
 			APPLICATION=${1,,};
@@ -25,10 +25,7 @@ if [ $1 != "--help" ];then
 	done
 
 	if [ -z $APPLICATION ]; then
-		echo "
-		[WARN] Invalid Client
-		Possible Clients: ${CLIENTS}
-		"
+		echo -e "[WARN] Invalid Client\n\nPossible Clients:\n\n${CLIENTS,,}"
 		exit 2
 	fi
 	
@@ -47,7 +44,7 @@ if [ $1 != "--help" ];then
 	
 	if [ -n $SINK_NUMBER ]; then
 		#Alterando o Volume 
-		pactl set-sink-input-volume $SINK_NUMBER $VOLUME
+		pactl set-sink-input-volume $SINK_NUMBER $VOLUME || exit 3
 	else
 		echo "[ERR] Command failed - Sink Number is Wrong"
 		exit 3
@@ -57,12 +54,8 @@ else
 Syntax:
 volfy client volume_percent
 
-Valid Clients:\n
-${CLIENTS}	
-
 Error Code:\n
 1 - Invalid Volume Value
 2 - Invalid Client Value
 3 - Sink Number failed - See 'pactl list sink-inputs'\n"
-
 fi
