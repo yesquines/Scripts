@@ -4,7 +4,7 @@
 #Ano: 2020
 #Script para Usar como Comando para alterar volumes de aplicações especificas
 
-CHECK_NUMBER='^[0-9]+$'
+CHECK_NUMBER='^[0-9]+%$'
 CLIENTS=$(pactl list clients short | awk '{print $3}' | grep -v null | sort -u)
 
 if [ $1 != "--help" ];then
@@ -14,7 +14,7 @@ if [ $1 != "--help" ];then
 	do
   	if [ $NAME == ${1,,} ]; then
 			APPLICATION=${1,,};
-			if [ $2 == $CHECK_NUMBER ]; then
+			if [[ $2 =~ $CHECK_NUMBER ]]; then
 				VOLUME=$2;
 			else
 			  echo "[ERR] Volume isn't a Percent Number (Example: 10%)";
