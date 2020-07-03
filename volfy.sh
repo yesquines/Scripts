@@ -1,0 +1,69 @@
+#!/bin/sh
+#Autor: Yago Ésquines
+#Email: yago.fut@gmail.com
+#Ano: 2020
+#Script para Usar como Comando para alterar volumes de aplicações especificas
+
+CHECK_NUMBER='^[0-9]+$'
+CLIENTS=$(pactl list clients short | awk '{print $3}' | grep -v null | sort -u)
+
+if [ $1 != "--help" ];then
+
+	#Validando Parametros do Comando
+	for NAME in $CLIENTS
+	do
+  	if [ $NAME == ${1,,} ]; then
+			APPLICATION=${1,,};
+			if [ $2 == $CHECK_NUMBER ]; then
+				VOLUME=$2;
+			else
+			  echo "[ERR] Volume isn't a Percent Number (Example: 10%)";
+				exit 1;
+			fi
+			break;
+	  fi
+	done
+
+	if [ -z $APPLICATION ]; then
+		echo "
+		[WARN] Invalid Client
+		Possible Clients: ${CLIENTS}
+		"
+		exit 2
+	fi
+	
+	#Coletando Client ID do Spotify
+	CLIENT_ID=$(pactl list clients short | grep ${APPLICATION} | awk '{print $1}')
+	
+	#Coletando Sink do Spotify
+	for ID in $CLIENT_ID
+	do
+		CHECK=$(pactl list sink-inputs short | grep $ID | awk '{print $1}');
+		if [ -n $CHECK ]; then
+			SINK_NUMBER=$(echo $CHECK | awk '{print $1}');
+			break
+		fi
+	done
+	
+	if [ -n $SINK_NUMBER ]; then
+		#Alterando o Volume 
+		pactl set-sink-input-volume $SINK_NUMBER $VOLUME
+	else
+		echo "[ERR] Command failed - Sink Number is Wrong"
+		exit 3
+	fi
+else
+	echo "
+	Syntax:
+	volfy client volume_percent
+
+	Valid Clients:
+  ${CLIENTS}	
+	
+	Error Cod:
+	1 - Invalid Volume Value
+	2 - Invalid Client Value
+	3 - Sink Number failed - See 'pactl list sink-inputs'
+	"
+
+fi
