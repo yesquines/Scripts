@@ -53,17 +53,16 @@ if [ $1 != "--help" ];then
 		exit 3
 	fi
 else
-	echo "
-	Syntax:
-	volfy client volume_percent
+	echo -e "
+Syntax:
+volfy client volume_percent
 
-	Valid Clients:
-  ${CLIENTS}	
-	
-	Error Cod:
-	1 - Invalid Volume Value
-	2 - Invalid Client Value
-	3 - Sink Number failed - See 'pactl list sink-inputs'
-	"
+Valid Clients:\n
+${CLIENTS}	
+
+Error Code:\n
+1 - Invalid Volume Value
+2 - Invalid Client Value
+3 - Sink Number failed - See 'pactl list sink-inputs'\n"
 
 fi
