@@ -2,6 +2,7 @@
 #Autor: Yago Ésquines
 #Email: yago.fut@gmail.com
 #Ano: 2020
+#Dependencia: pactl
 #Script para Usar como Comando para alterar volumes de aplicações especificas
 
 CHECK_NUMBER='^[0-9]+%$'
