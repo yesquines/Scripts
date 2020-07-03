@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #Autor: Yago Ésquines
 #Email: yago.fut@gmail.com
 #Ano: 2020
@@ -12,7 +12,7 @@ if [ $1 != "--help" ];then
 	#Validando Parametros do Comando
 	for NAME in ${CLIENTS,,}
 	do
-  	if [ $NAME == ${1,,} ]; then
+  	if [ ${NAME} == ${1,,} ]; then
 			APPLICATION=${1,,};
 			if [[ $2 =~ $CHECK_NUMBER ]]; then
 				VOLUME=$2;
@@ -25,12 +25,12 @@ if [ $1 != "--help" ];then
 	done
 
 	if [ -z $APPLICATION ]; then
-		echo -e "[WARN] Invalid Client\n\nPossible Clients:\n\n${CLIENTS,,}"
-		exit 2
+		echo -e "[WARN] Invalid Client\n\nPossible Clients:\n\n${CLIENTS,,}";
+		exit 2;
 	fi
 	
 	#Coletando Client ID do Spotify
-	CLIENT_ID=$(pactl list clients short | grep ${APPLICATION} | awk '{print $1}')
+	CLIENT_ID=$(pactl list clients short | grep ${APPLICATION} | awk '{print $1}');
 	
 	#Coletando Sink do Spotify
 	for ID in $CLIENT_ID
@@ -38,13 +38,13 @@ if [ $1 != "--help" ];then
 		CHECK=$(pactl list sink-inputs short | grep $ID | awk '{print $1}');
 		if [ -n "$CHECK" ]; then
 			SINK_NUMBER=$(echo $CHECK | awk '{print $1}');
-			break
+			break;
 		fi
 	done
 	
 	if [ -n $SINK_NUMBER ]; then
 		#Alterando o Volume 
-		pactl set-sink-input-volume $SINK_NUMBER $VOLUME || exit 3
+		pactl set-sink-input-volume $SINK_NUMBER $VOLUME || exit 3;
 	else
 		echo "[ERR] Command failed - Sink Number is Wrong"
 		exit 3
@@ -57,5 +57,5 @@ volfy client volume_percent
 Error Code:\n
 1 - Invalid Volume Value
 2 - Invalid Client Value
-3 - Sink Number failed - See 'pactl list sink-inputs'\n"
+3 - Sink Number failed - See 'pactl list sink-inputs'\n";
 fi
