@@ -39,7 +39,7 @@ if [ $1 != "--help" ];then
 	for ID in $CLIENT_ID
 	do
 		CHECK=$(pactl list sink-inputs short | grep $ID | awk '{print $1}');
-		if [ -n $CHECK ]; then
+		if [ -n "$CHECK" ]; then
 			SINK_NUMBER=$(echo $CHECK | awk '{print $1}');
 			break
 		fi
